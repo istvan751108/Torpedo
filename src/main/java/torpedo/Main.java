@@ -20,12 +20,12 @@ public class Main {
         System.out.println(playerTable1.createTable());
         Scanner player2 = new Scanner(System.in);
 
-        //System.out.println("Adja meg a 2. játékos nevét:");
-        //GamerVO gamerVO2 = new GamerVO(player2.nextLine());
-        //System.out.println("Kellemes szórakozást kívánok neked," + gamerVO2.getName() + "!");
-        //System.out.println("A 2. játékos hajóinak kiválasztása:");
-        //PlayerTable playerTable2 = new PlayerTable(10, 10);
-        //System.out.println(playerTable2.createTable());
+        System.out.println("Adja meg a 2. játékos nevét:");
+        GamerVO gamerVO2 = new GamerVO(player2.nextLine());
+        System.out.println("Kellemes szórakozást kívánok neked," + gamerVO2.getName() + "!");
+        System.out.println("A 2. játékos hajóinak kiválasztása:");
+        PlayerTable playerTable2 = new PlayerTable(10, 10);
+        System.out.println(playerTable2.createTable());
 
         player1.close();
         player2.close();

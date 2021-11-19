@@ -37,7 +37,7 @@ public class PlayerTable {
         System.out.println("Oszlop koordináta");
         int shipBeginCoordinateY = coordinateY.nextInt();
         Scanner shipDirection = new Scanner(System.in);
-        System.out.println("Válaszd ki a hajó elhelyezésének irányát h= vízszintes, v=függőleges");
+        System.out.println("Válaszd ki a hajó elhelyezésének irányát h= vízszintes, minden egyéb=függőleges");
         String shipDirectionOrder = shipDirection.nextLine();
         if (shipDirectionOrder.contains("h")) {
             for (int j = 0; j < shipSize; j++) {
