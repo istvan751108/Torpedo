@@ -9,7 +9,6 @@ public final class MapVO {
     private final int numberOfColumns;
     private final char[][] map;
 
-
     public MapVO(int numberOfRows, int numberOfColumns, char[][] map) {
         this.numberOfRows = numberOfRows;
         this.numberOfColumns = numberOfColumns;
@@ -28,7 +27,7 @@ public final class MapVO {
         return deepCopy(this.map);
     }
 
-    private char[][] deepCopy(char[][] map){
+    private char[][] deepCopy(char[][] map) {
         char[][] result = new char[map.length][];
 
         for (int i = 0; i < map.length; i++) {
@@ -60,7 +59,7 @@ public final class MapVO {
         return "MapVO{" +
                 "numberOfRows=" + numberOfRows +
                 ", numberOfColumns=" + numberOfColumns +
-                ", map=" + Arrays.toString(map) +
-                '}';
+                ", map=" + "\n " + Arrays.deepToString(map).replace("],","\n").replace(",","\t ")
+                .replaceAll("[\\[\\]]", "");
     }
 }
