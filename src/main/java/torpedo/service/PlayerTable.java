@@ -1,10 +1,10 @@
 package torpedo.service;
 
 import torpedo.model.MapVO;
-
 import java.util.Scanner;
 
 public class PlayerTable {
+    boolean actualCoordinateDecision=true;
     private final int numberOfRows;
     private final int numberOfColumns;
 
@@ -23,6 +23,10 @@ public class PlayerTable {
         for (int shipSize = 5; shipSize > 0; shipSize--) {
             System.out.println(shipSize + "-egység hosszú hajó koordinátáinak kiválasztása:");
             createShipPlaces(table, shipSize);
+            if (!actualCoordinateDecision){
+                shipSize++;
+                actualCoordinateDecision=true;
+            }
         }
         return table;
     }
@@ -40,14 +44,23 @@ public class PlayerTable {
         System.out.println("Válaszd ki a hajó elhelyezésének irányát h= vízszintes, minden egyéb=függőleges");
         String shipDirectionOrder = shipDirection.nextLine();
         if (shipDirectionOrder.contains("h")) {
-            for (int j = 0; j < shipSize; j++) {
-                table[shipBeginCoordinateX][shipBeginCoordinateY + j] = shipChar;
+            for (int i=0; i < shipSize; i++) {
+                if (table[shipBeginCoordinateX][shipBeginCoordinateY + i] != shipChar) {
+                    table[shipBeginCoordinateX][shipBeginCoordinateY + i] = shipChar;
+                } else {
+                    System.out.println("["+ shipBeginCoordinateX +"]["+ (shipBeginCoordinateY+i)+"] koordinátán már van hajó. Válassz másikat!");
+                    actualCoordinateDecision = false;
+                }
             }
         } else {
-            for (int j = 0; j < shipSize; j++){
-                table[shipBeginCoordinateX + j][shipBeginCoordinateY] = shipChar;
+            for (int i=0; i < shipSize; i++) {
+                if (table[shipBeginCoordinateX + i][shipBeginCoordinateY] != shipChar) {
+                    table[shipBeginCoordinateX + i][shipBeginCoordinateY] = shipChar;
+                } else {
+                    System.out.println("["+ (shipBeginCoordinateX+i) +"]["+ (shipBeginCoordinateY)+"] koordinátán már van hajó. Válassz másikat!");
+                    actualCoordinateDecision = false;
+                }
             }
-
         }
     }
 }
