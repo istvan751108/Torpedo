@@ -43,6 +43,7 @@ public class PlayerTable {
         Scanner shipDirection = new Scanner(System.in);
         System.out.println("Válaszd ki a hajó elhelyezésének irányát h= vízszintes, minden egyéb=függőleges");
         String shipDirectionOrder = shipDirection.nextLine();
+
         if (shipDirectionOrder.contains("h")) {
             for (int i=0; i < shipSize; i++) {
                 if (table[shipBeginCoordinateX][shipBeginCoordinateY + i] != shipChar) {

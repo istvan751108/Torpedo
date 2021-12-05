@@ -16,9 +16,9 @@ public class ShootTable {
             this.numberOfColumns = numberOfColumns;
         }
 
-        public PlayerTable createNewShooterTable() {
+        public MapVO createNewShooterTable() {
             char[][] table = getTable();
-            return new PlayerTable(numberOfRows, numberOfColumns);
+            return new MapVO(numberOfRows, numberOfColumns, table);
         }
 
         private char[][] getTable() {
