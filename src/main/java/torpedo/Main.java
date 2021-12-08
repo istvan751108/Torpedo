@@ -1,14 +1,10 @@
 package torpedo;
 
 import torpedo.model.GamerVO;
+import torpedo.model.MapVO;
 import torpedo.service.PlayerTable;
 import torpedo.service.ShootTable;
-
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Scanner;
-
-import static java.util.Arrays.*;
 
 public class Main {
 
@@ -31,8 +27,17 @@ public class Main {
         System.out.println(playerTable2.createTable());
         System.out.println("A pályák készen vannak. Következik a vadászat!");
 
-        ShootTable shootTable1 = new ShootTable(10, 10);
-        System.out.println(shootTable1.createNewShooterTable());
+        ShootTable shootTable = new ShootTable(10, 10);
+
+            System.out.println("Az első játékos lövése jön");
+            MapVO shootTable2 = shootTable.createNewShooterTable();
+            System.out.println(shootTable2);
+            System.out.println(playerTable1);
+
+            System.out.println("A második játékos lövése jön");
+            MapVO shootTable1 = shootTable.createNewShooterTable();
+            System.out.println(shootTable1);
+            System.out.println(playerTable2);
 
         player1.close();
         player2.close();

@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class PlayerTable {
     boolean actualCoordinateDecision=true;
+
     private final int numberOfRows;
     private final int numberOfColumns;
 
@@ -63,5 +64,16 @@ public class PlayerTable {
                 }
             }
         }
+    }
+    public static char shootValidator(char[][] table, int shootEnemyX, int shootEnemyY) {
+        char newShipChar = 'T';
+        char newWaterChar = 'O';
+
+        if (table[shootEnemyX][shootEnemyY] == 'X') {
+            table[shootEnemyX][shootEnemyY]= newShipChar;
+        } else {
+            table[shootEnemyX][shootEnemyY]= newWaterChar;
+        }
+        return table[shootEnemyX][shootEnemyY];
     }
 }

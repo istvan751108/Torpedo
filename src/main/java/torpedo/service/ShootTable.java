@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class ShootTable {
 
         boolean actualCoordinateDecision=true;
-        int scoreActual = 1000;
+
         private final int numberOfRows;
         private final int numberOfColumns;
 
@@ -29,21 +29,24 @@ public class ShootTable {
         }
 
         private void targetShipPlaces(char[][] table) {
-            char newShipChar = 'T';
-            char newWaterChar = 'O';
-
+            char targetShipChar;
+            int scoreActual = 1000;
             Scanner shootCoordinateX = new Scanner(System.in);
             System.out.println("Sor koordináta");
             int targetCoordinateX = shootCoordinateX.nextInt();
             Scanner shootCoordinateY = new Scanner(System.in);
             System.out.println("Oszlop koordináta");
             int targetCoordinateY = shootCoordinateY.nextInt();
-            if (table[targetCoordinateX][targetCoordinateY] == 'X') {
-                table[targetCoordinateX][targetCoordinateY]= newShipChar;
+            targetShipChar = PlayerTable.shootValidator(table, targetCoordinateX, targetCoordinateY);
+            if (targetShipChar == 'T') {
                 scoreActual += 5;
+                System.out.println("A játékos aktuális pontja:"+scoreActual);
+                table[targetCoordinateX][targetCoordinateY] = targetShipChar;
+
             } else {
-                table[targetCoordinateX][targetCoordinateY]= newWaterChar;
                 scoreActual -= 1;
+                System.out.println("A játékos aktuális pontja:"+scoreActual);
+                table[targetCoordinateX][targetCoordinateY] = targetShipChar;
             }
         }
     }
