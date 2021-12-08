@@ -19,7 +19,7 @@ public class PlayerTable {
         return new MapVO(numberOfRows, numberOfColumns, table);
     }
 
-    private char[][] getTable() {
+    public char[][] getTable() {
         char[][] table = new char[numberOfRows][numberOfColumns];
         for (int shipSize = 5; shipSize > 0; shipSize--) {
             System.out.println(shipSize + "-egység hosszú hajó koordinátáinak kiválasztása:");
@@ -64,16 +64,5 @@ public class PlayerTable {
                 }
             }
         }
-    }
-    public static char shootValidator(char[][] table, int shootEnemyX, int shootEnemyY) {
-        char newShipChar = 'T';
-        char newWaterChar = 'O';
-
-        if (table[shootEnemyX][shootEnemyY] == 'X') {
-            table[shootEnemyX][shootEnemyY]= newShipChar;
-        } else {
-            table[shootEnemyX][shootEnemyY]= newWaterChar;
-        }
-        return table[shootEnemyX][shootEnemyY];
     }
 }

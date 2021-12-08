@@ -56,10 +56,7 @@ public final class MapVO {
 
     @Override
     public String toString() {
-        return "MapVO{" +
-                "numberOfRows=" + numberOfRows +
-                ", numberOfColumns=" + numberOfColumns +
-                ", map=" + "\n " + Arrays.deepToString(map).replace("],","\n").replace(",","\t ")
+        return "\n " + Arrays.deepToString(map).replace("],","\n").replace(",","\t ")
                 .replaceAll("[\\[\\]]", "");
     }
 }

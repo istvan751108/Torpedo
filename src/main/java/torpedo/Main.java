@@ -14,30 +14,32 @@ public class Main {
         GamerVO gamerVO1 = new GamerVO(player1.nextLine());
         System.out.println("Kellemes szórakozást kívánok neked," + gamerVO1.getName() + "!");
 
-        System.out.println("Az 1. játékos hajóinak kiválasztása:");
+        System.out.println(gamerVO1.getName() + " hajóinak kiválasztása:");
         PlayerTable playerTable1 = new PlayerTable(10, 10);
-        System.out.println(playerTable1.createTable());
-        Scanner player2 = new Scanner(System.in);
+        MapVO mapVO1 = playerTable1.createTable();
+        System.out.println(mapVO1);
 
+        Scanner player2 = new Scanner(System.in);
         System.out.println("Adja meg a 2. játékos nevét:");
         GamerVO gamerVO2 = new GamerVO(player2.nextLine());
         System.out.println("Kellemes szórakozást kívánok neked," + gamerVO2.getName() + "!");
-        System.out.println("A 2. játékos hajóinak kiválasztása:");
+        System.out.println(gamerVO2.getName() +" hajóinak kiválasztása:");
         PlayerTable playerTable2 = new PlayerTable(10, 10);
-        System.out.println(playerTable2.createTable());
-        System.out.println("A pályák készen vannak. Következik a vadászat!");
+        MapVO mapVO2 = playerTable2.createTable();
+        System.out.println(mapVO2);
 
-        ShootTable shootTable = new ShootTable(10, 10);
+        System.out.println("Mindkét játékos pályái készen vannak. Következik a vadászat!");
+        ShootTable shootTable = new ShootTable(mapVO2,mapVO1);
 
-            System.out.println("Az első játékos lövése jön");
-            MapVO shootTable2 = shootTable.createNewShooterTable();
-            System.out.println(shootTable2);
-            System.out.println(playerTable1);
+            System.out.println(gamerVO1.getName() +" lövése következik");
+            MapVO shootTable2 = shootTable.shootValidatorPlayer01();
+            System.out.println("Saját tábla: "+mapVO1);
+            System.out.println("Ellenfél táblája: "+shootTable2);
 
-            System.out.println("A második játékos lövése jön");
-            MapVO shootTable1 = shootTable.createNewShooterTable();
-            System.out.println(shootTable1);
-            System.out.println(playerTable2);
+            System.out.println(gamerVO2.getName() +" lövése következik");
+            MapVO shootTable1 = shootTable.shootValidatorPlayer02();
+            System.out.println("Saját tábla: "+mapVO2);
+            System.out.println("Ellenfél táblája: "+shootTable1);
 
         player1.close();
         player2.close();

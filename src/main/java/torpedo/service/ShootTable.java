@@ -1,52 +1,47 @@
 package torpedo.service;
 
 import torpedo.model.MapVO;
-import torpedo.service.PlayerTable;
 import java.util.Scanner;
 
 public class ShootTable {
+    private MapVO mapVOEnemy, mapVOOwn;
 
-        boolean actualCoordinateDecision=true;
+    public ShootTable(MapVO mapVO1, MapVO mapVO2) {
+        this.mapVOEnemy = mapVO1;
+        this.mapVOOwn = mapVO2;
+    }
 
-        private final int numberOfRows;
-        private final int numberOfColumns;
+    public MapVO shootValidatorPlayer01() {
+        char[][] table = mapVOEnemy.getMap();
+        targetShipPlaces(table);
+        MapVO mapVO21 = new MapVO(mapVOEnemy.getNumberOfRows(), mapVOEnemy.getNumberOfColumns(), table);
+        return mapVO21;
+    }
+    public MapVO shootValidatorPlayer02() {
+        char[][] table = mapVOOwn.getMap();
+        targetShipPlaces(table);
+        MapVO mapVO21 = new MapVO(mapVOOwn.getNumberOfRows(), mapVOOwn.getNumberOfColumns(), table);
+        return mapVO21;
+    }
 
-        public ShootTable(int numberOfRows, int numberOfColumns) {
-            this.numberOfRows = numberOfRows;
-            this.numberOfColumns = numberOfColumns;
-        }
+    private void targetShipPlaces(char[][] table) {
+        int scoreActual = 1000;
+        char newShipChar = 'T';
+        char newWaterChar = 'O';
 
-        public MapVO createNewShooterTable() {
-            char[][] table = getTable();
-            return new MapVO(numberOfRows, numberOfColumns, table);
-        }
-
-        private char[][] getTable() {
-            char[][] table = new char[numberOfRows][numberOfColumns];
-            System.out.println("Add meg a cél koordinátákat!");
-            targetShipPlaces(table);
-            return table;
-        }
-
-        private void targetShipPlaces(char[][] table) {
-            char targetShipChar;
-            int scoreActual = 1000;
-            Scanner shootCoordinateX = new Scanner(System.in);
-            System.out.println("Sor koordináta");
-            int targetCoordinateX = shootCoordinateX.nextInt();
-            Scanner shootCoordinateY = new Scanner(System.in);
-            System.out.println("Oszlop koordináta");
-            int targetCoordinateY = shootCoordinateY.nextInt();
-            targetShipChar = PlayerTable.shootValidator(table, targetCoordinateX, targetCoordinateY);
-            if (targetShipChar == 'T') {
-                scoreActual += 5;
-                System.out.println("A játékos aktuális pontja:"+scoreActual);
-                table[targetCoordinateX][targetCoordinateY] = targetShipChar;
-
-            } else {
-                scoreActual -= 1;
-                System.out.println("A játékos aktuális pontja:"+scoreActual);
-                table[targetCoordinateX][targetCoordinateY] = targetShipChar;
-            }
+        System.out.println("Add meg a cél koordinátákat!");
+        Scanner shootCoordinateX = new Scanner(System.in);
+        System.out.println("Sor koordináta");
+        int targetCoordinateX = shootCoordinateX.nextInt();
+        Scanner shootCoordinateY = new Scanner(System.in);
+        System.out.println("Oszlop koordináta");
+        int targetCoordinateY = shootCoordinateY.nextInt();
+        if (table[targetCoordinateX][targetCoordinateY] == 'X') {
+            table[targetCoordinateX][targetCoordinateY] = newShipChar;
+            scoreActual += 5;
+        } else {
+            table[targetCoordinateX][targetCoordinateY] = newWaterChar;
+            scoreActual -= 1;
         }
     }
+}
