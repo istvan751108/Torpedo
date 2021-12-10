@@ -4,30 +4,29 @@ import torpedo.model.MapVO;
 import java.util.Scanner;
 
 public class ShootTable {
-    private MapVO mapVOEnemy, mapVOOwn;
+    private MapVO mapVOPlayer02, mapVOPlayer01;
 
-    public ShootTable(MapVO mapVO1, MapVO mapVO2) {
-        this.mapVOEnemy = mapVO1;
-        this.mapVOOwn = mapVO2;
+    public ShootTable(MapVO mapVOPlayer02, MapVO mapVOPlayer01) {
+        this.mapVOPlayer02 = mapVOPlayer02;
+        this.mapVOPlayer01 = mapVOPlayer01;
     }
 
     public MapVO shootValidatorPlayer01() {
-        char[][] table = mapVOEnemy.getMap();
-        targetShipPlaces(table);
-        MapVO mapVO21 = new MapVO(mapVOEnemy.getNumberOfRows(), mapVOEnemy.getNumberOfColumns(), table);
+        char[][] table2 = mapVOPlayer02.getMap();
+        targetShipPlaces(table2);
+        MapVO mapVO21 = new MapVO(mapVOPlayer02.getNumberOfRows(), mapVOPlayer02.getNumberOfColumns(), table2);
         return mapVO21;
     }
     public MapVO shootValidatorPlayer02() {
-        char[][] table = mapVOOwn.getMap();
-        targetShipPlaces(table);
-        MapVO mapVO21 = new MapVO(mapVOOwn.getNumberOfRows(), mapVOOwn.getNumberOfColumns(), table);
-        return mapVO21;
+        char[][] table1 = mapVOPlayer01.getMap();
+        targetShipPlaces(table1);
+        MapVO mapVO22 = new MapVO(mapVOPlayer01.getNumberOfRows(), mapVOPlayer01.getNumberOfColumns(), table1);
+        return mapVO22;
     }
 
     private void targetShipPlaces(char[][] table) {
-        int scoreActual = 1000;
         char newShipChar = 'T';
-        char newWaterChar = 'O';
+        char newWaterChar = 'E';
 
         System.out.println("Add meg a cél koordinátákat!");
         Scanner shootCoordinateX = new Scanner(System.in);
@@ -38,10 +37,8 @@ public class ShootTable {
         int targetCoordinateY = shootCoordinateY.nextInt();
         if (table[targetCoordinateX][targetCoordinateY] == 'X') {
             table[targetCoordinateX][targetCoordinateY] = newShipChar;
-            scoreActual += 5;
         } else {
             table[targetCoordinateX][targetCoordinateY] = newWaterChar;
-            scoreActual -= 1;
         }
     }
 }

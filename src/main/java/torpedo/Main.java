@@ -2,13 +2,17 @@ package torpedo;
 
 import torpedo.model.GamerVO;
 import torpedo.model.MapVO;
+import torpedo.service.CheckerTable;
+import torpedo.service.EndChecker;
 import torpedo.service.PlayerTable;
 import torpedo.service.ShootTable;
+
+
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
+        boolean end=false;
         Scanner player1 = new Scanner(System.in);
         System.out.println("Adja meg az 1. játékos nevét:");
         GamerVO gamerVO1 = new GamerVO(player1.nextLine());
@@ -29,18 +33,32 @@ public class Main {
         System.out.println(mapVO2);
 
         System.out.println("Mindkét játékos pályái készen vannak. Következik a vadászat!");
-        ShootTable shootTable = new ShootTable(mapVO2,mapVO1);
 
+        do {
+            ShootTable shootTable = new ShootTable(mapVO2,mapVO1);
             System.out.println(gamerVO1.getName() +" lövése következik");
             MapVO shootTable2 = shootTable.shootValidatorPlayer01();
-            System.out.println("Saját tábla: "+mapVO1);
-            System.out.println("Ellenfél táblája: "+shootTable2);
-
             System.out.println(gamerVO2.getName() +" lövése következik");
             MapVO shootTable1 = shootTable.shootValidatorPlayer02();
-            System.out.println("Saját tábla: "+mapVO2);
-            System.out.println("Ellenfél táblája: "+shootTable1);
+            CheckerTable checkerTable = new CheckerTable(shootTable2,shootTable1);
+            MapVO checkerTable2 = checkerTable.checkerTablePlayer01();
+            MapVO checkerTable1 = checkerTable.checkerTablePlayer02();
+            System.out.println(gamerVO1.getName() +" saját táblája: "+shootTable1);
+            System.out.println(gamerVO1.getName() +" ellenfelének táblája: "+checkerTable2);
 
+            System.out.println(gamerVO2.getName() +" saját táblája: "+shootTable2);
+            System.out.println(gamerVO2.getName() +" ellenfelének táblája: "+checkerTable1);
+            mapVO1=shootTable1;
+            mapVO2=shootTable2;
+            EndChecker endChecker = new EndChecker(shootTable2,shootTable1);
+            boolean endPlayer01 = endChecker.endCheckerPlayer01();
+            boolean endPlayer02 = endChecker.endCheckerPlayer02();
+            if ((endPlayer01)||(endPlayer02)){
+                end=true;
+            }
+        } while(!end);
+
+        System.out.println("Vége a játéknak!");
         player1.close();
         player2.close();
     }
