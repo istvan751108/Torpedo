@@ -3,6 +3,11 @@ package torpedo.model;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * This is the Play's Map Value Object Class.
+ *
+ * @author István Szabó
+ */
 public final class MapVO {
 
     private final int numberOfRows;
@@ -41,8 +46,12 @@ public final class MapVO {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         MapVO mapVO = (MapVO) o;
         return numberOfRows == mapVO.numberOfRows && numberOfColumns == mapVO.numberOfColumns && Arrays.deepEquals(map, mapVO.map);
     }
@@ -56,7 +65,7 @@ public final class MapVO {
 
     @Override
     public String toString() {
-        return "\n " + Arrays.deepToString(map).replace("],","\n").replace(",","\t ")
+        return "\n " + Arrays.deepToString(map).replace("],", "\n").replace(",", "\t ")
                 .replaceAll("[\\[\\]]", "");
     }
 }
