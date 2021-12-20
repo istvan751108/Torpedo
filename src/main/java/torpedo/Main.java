@@ -2,6 +2,8 @@ package torpedo;
 
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import torpedo.model.GamerVO;
 import torpedo.model.MapVO;
 import torpedo.service.CheckerTable;
@@ -17,13 +19,15 @@ import torpedo.service.ShootTable;
  */
 
 public class Main {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     /**
      * This is the main method. Some kind of handy description goes here.
      *
      * @param args The command line arguments.
-     * @throws java.io.IOException when we can't read a file or something like that.
      */
+
     public static void main(String[] args) {
+        LOGGER.info("A játék elkezdődött");
         Scanner player1 = new Scanner(System.in);
         System.out.println("Adja meg az 1. játékos nevét:");
         GamerVO gamerVO1 = new GamerVO(player1.nextLine());
@@ -69,7 +73,7 @@ public class Main {
             }
         } while (!end);
 
-        System.out.println("Vége a játéknak!");
+        LOGGER.info("Vége a játéknak!");
         player1.close();
         player2.close();
     }

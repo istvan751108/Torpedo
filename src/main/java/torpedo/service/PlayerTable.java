@@ -2,6 +2,8 @@ package torpedo.service;
 
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import torpedo.model.MapVO;
 
 /**
@@ -11,7 +13,7 @@ import torpedo.model.MapVO;
  */
 public class PlayerTable {
     boolean actualCoordinateDecision = true;
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlayerTable.class);
     private final int numberOfRows;
     private final int numberOfColumns;
 
@@ -61,7 +63,7 @@ public class PlayerTable {
                 if (table[shipBeginPointX][shipBeginPointY + i] != shipChar) {
                     table[shipBeginPointX][shipBeginPointY + i] = shipChar;
                 } else {
-                    System.out.println("[" + shipBeginPointX + "][" + (shipBeginPointY + i) + "] ponton már van hajó. Válassz másikat!");
+                    LOGGER.warn("[" + shipBeginPointX + "][" + (shipBeginPointY + i) + "] ponton már van hajó. Válassz másikat!");
                     actualCoordinateDecision = false;
                 }
             }
@@ -70,7 +72,7 @@ public class PlayerTable {
                 if (table[shipBeginPointX + i][shipBeginPointY] != shipChar) {
                     table[shipBeginPointX + i][shipBeginPointY] = shipChar;
                 } else {
-                    System.out.println("[" + (shipBeginPointX + i) + "][" + (shipBeginPointY) + "] ponton már van hajó. Válassz másikat!");
+                    LOGGER.warn("[" + (shipBeginPointX + i) + "][" + (shipBeginPointY) + "] ponton már van hajó. Válassz másikat!");
                     actualCoordinateDecision = false;
                 }
             }

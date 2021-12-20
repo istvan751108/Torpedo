@@ -1,5 +1,7 @@
 package torpedo.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import torpedo.model.MapVO;
 
 /**
@@ -8,6 +10,7 @@ import torpedo.model.MapVO;
  * @author István Szabó
  */
 public class EndChecker {
+    private static final Logger LOGGER = LoggerFactory.getLogger(EndChecker.class);
     private final MapVO mapVOChecker02;
     private final MapVO mapVOChecker01;
     boolean endPlay = false;
@@ -34,7 +37,7 @@ public class EndChecker {
             }
         }
         if (counterPlayer01 == 15) {
-            System.out.println("Minden hajó elsüllyedt! Győzött az 1. játékos!");
+            LOGGER.info("Minden hajó elsüllyedt! Győzött az 1. játékos!");
             endPlay = true;
         }
         return endPlay;
@@ -55,7 +58,7 @@ public class EndChecker {
             }
         }
         if (counterPlayer02 == 15) {
-            System.out.println("Minden hajó elsüllyedt! Győzött a 2. játékos!");
+            LOGGER.info("Minden hajó elsüllyedt! Győzött a 2. játékos!");
             endPlay = true;
         }
         return endPlay;
