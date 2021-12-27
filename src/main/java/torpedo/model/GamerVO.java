@@ -14,6 +14,10 @@ public class GamerVO {
         this.name = name;
     }
 
+    public GamerVO() {
+
+    }
+
     public String getName() {
         return name;
     }
