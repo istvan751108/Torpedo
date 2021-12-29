@@ -9,21 +9,27 @@ import java.util.Objects;
  */
 public class GamerVO {
     private String name;
+    private int point;
 
     public GamerVO(String name) {
         this.name = name;
-    }
-
-    public GamerVO() {
-
+        this.point = point;
     }
 
     public String getName() {
         return name;
     }
 
+    public int getPoint() {
+        return point;
+    }
+
     public void setNev(String name) {
         this.name = name;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
     }
 
     @Override
@@ -38,13 +44,12 @@ public class GamerVO {
         return Objects.equals(name, gamerVO.name);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
+    public GamerVO(String player1, int i) {
+
     }
 
     @Override
     public String toString() {
-        return "GamerVO name" + name;
+        return "GamerVO name" + name + "Point: " + point;
     }
 }
