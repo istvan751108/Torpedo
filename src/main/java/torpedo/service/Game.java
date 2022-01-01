@@ -48,10 +48,10 @@ public class Game {
             ShootTable shootTable = new ShootTable(mapVO2, mapVO1);
             System.out.println(gamerVO1.getName() + " lövése következik");
             MapVO shootTable2 = shootTable.shootValidatorPlayer01();
-            jdbcPlayerRepository.modPlayer(gamerVO1,-1);
+            jdbcPlayerRepository.modPlayer(gamerVO1,-10);
             System.out.println(gamerVO2.getName() + " lövése következik");
             MapVO shootTable1 = shootTable.shootValidatorPlayer02();
-            jdbcPlayerRepository.modPlayer(gamerVO2,-1);
+            jdbcPlayerRepository.modPlayer(gamerVO2,-10);
             CheckerTable checkerTable = new CheckerTable(shootTable2, shootTable1);
             MapVO checkerTable2 = checkerTable.checkerTablePlayer01();
             MapVO checkerTable1 = checkerTable.checkerTablePlayer02();
