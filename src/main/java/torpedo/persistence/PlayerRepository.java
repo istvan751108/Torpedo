@@ -8,11 +8,11 @@ import torpedo.model.GamerVO;
  * @author István Szabó
  */
 public interface PlayerRepository {
-    void addPlayer(GamerVO gamerVO, int point);
+    void addPlayer(GamerVO gamerVO);
 
     void close() throws Exception;
 
-    void modPlayer(GamerVO gamerVO, int point);
+    void modPlayer(GamerVO gamerVO);
 
     GamerVO readPlayer();
 }

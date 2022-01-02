@@ -1,20 +1,22 @@
-2022-01-01 17:12:35 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Column count does not match; SQL statement:
-INSERT INTO GAME_POINTLIST (NAME, POINT) VALUES (1, ?, ?); [21002-199]
+2022-01-02 22:13:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "DESC" not found; SQL statement:
+SELECT * FROM GAME_POINTLIST WHERE 1 ORDER BY POINT *DESC; [42122-199]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:451)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
 	at org.h2.message.DbException.get(DbException.java:205)
 	at org.h2.message.DbException.get(DbException.java:181)
-	at org.h2.message.DbException.get(DbException.java:170)
-	at org.h2.command.dml.Insert.prepare(Insert.java:314)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:176)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:158)
+	at org.h2.expression.BinaryOperation.optimize(BinaryOperation.java:164)
+	at org.h2.command.dml.Select.prepare(Select.java:1245)
 	at org.h2.command.Parser.prepareCommand(Parser.java:689)
 	at org.h2.engine.Session.prepareLocal(Session.java:627)
 	at org.h2.engine.Session.prepareCommand(Session.java:565)
 	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1292)
 	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:77)
 	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:349)
-	at torpedo.persistence.impl.JdbcPlayerRepository.addPlayer(JdbcPlayerRepository.java:37)
-	at torpedo.service.Game.game(Game.java:28)
+	at torpedo.persistence.impl.JdbcPlayerRepository.readPlayer(JdbcPlayerRepository.java:64)
+	at torpedo.service.Game.game(Game.java:97)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -33,68 +35,3 @@ INSERT INTO GAME_POINTLIST (NAME, POINT) VALUES (1, ?, ?); [21002-199]
 	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
 	at org.springframework.context.annotation.AnnotationConfigApplicationContext.<init>(AnnotationConfigApplicationContext.java:105)
 	at torpedo.Main.main(Main.java:21)
-2022-01-01 17:12:51 jdbc[4]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Column count does not match; SQL statement:
-INSERT INTO GAME_POINTLIST (NAME, POINT) VALUES (1, ?, ?); [21002-199]
-	at org.h2.message.DbException.getJdbcSQLException(DbException.java:451)
-	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
-	at org.h2.message.DbException.get(DbException.java:205)
-	at org.h2.message.DbException.get(DbException.java:181)
-	at org.h2.message.DbException.get(DbException.java:170)
-	at org.h2.command.dml.Insert.prepare(Insert.java:314)
-	at org.h2.command.Parser.prepareCommand(Parser.java:689)
-	at org.h2.engine.Session.prepareLocal(Session.java:627)
-	at org.h2.engine.Session.prepareCommand(Session.java:565)
-	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1292)
-	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:77)
-	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:349)
-	at torpedo.persistence.impl.JdbcPlayerRepository.addPlayer(JdbcPlayerRepository.java:37)
-	at torpedo.service.Game.game(Game.java:39)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeCustomInitMethod(AbstractAutowireCapableBeanFactory.java:1930)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1872)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:953)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
-	at org.springframework.context.annotation.AnnotationConfigApplicationContext.<init>(AnnotationConfigApplicationContext.java:105)
-	at torpedo.Main.main(Main.java:21)
-2022-01-01 20:46:09 jdbc[4]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "UPDATE GAME_POINTLIST WHERE[*] ID = 1; "; expected "., AS, SET"; SQL statement:
-UPDATE GAME_POINTLIST WHERE id = 1; [42001-199]
-2022-01-01 20:46:12 jdbc[4]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "UPDATE GAME_POINTLIST WHERE[*] ID = 1; "; expected "., AS, SET"; SQL statement:
-UPDATE GAME_POINTLIST WHERE id = 1; [42001-199]
-2022-01-01 20:46:21 jdbc[4]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "UPDATE GAME_POINTLIST WHERE[*] ID = 1; "; expected "., AS, SET"; SQL statement:
-UPDATE GAME_POINTLIST WHERE id = 1; [42001-199]
-2022-01-01 20:46:23 jdbc[4]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "UPDATE GAME_POINTLIST WHERE[*] ID = 1; "; expected "., AS, SET"; SQL statement:
-UPDATE GAME_POINTLIST WHERE id = 1; [42001-199]
-2022-01-01 21:10:30 jdbc[4]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "UPDATE GAME_POINTLIST WHERE[*] 1;"; expected "., AS, SET"; SQL statement:
-UPDATE GAME_POINTLIST WHERE 1; [42001-199]
-2022-01-01 21:10:34 jdbc[4]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "UPDATE GAME_POINTLIST WHERE[*] 1;"; expected "., AS, SET"; SQL statement:
-UPDATE GAME_POINTLIST WHERE 1; [42001-199]
-2022-01-01 21:19:00 jdbc[4]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "UPDATE GAME_POINTLIST SET (POINT) WHERE[*] 1 VALUES(?);"; expected "="; SQL statement:
-UPDATE GAME_POINTLIST SET (POINT) WHERE 1 VALUES(?); [42001-199]
-2022-01-01 21:19:05 jdbc[4]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "UPDATE GAME_POINTLIST SET (POINT) WHERE[*] 1 VALUES(?);"; expected "="; SQL statement:
-UPDATE GAME_POINTLIST SET (POINT) WHERE 1 VALUES(?); [42001-199]
-2022-01-01 21:19:08 jdbc[4]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "UPDATE GAME_POINTLIST SET (POINT) WHERE[*] 1 VALUES(?);"; expected "="; SQL statement:
-UPDATE GAME_POINTLIST SET (POINT) WHERE 1 VALUES(?); [42001-199]
-2022-01-01 21:19:09 jdbc[4]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "UPDATE GAME_POINTLIST SET (POINT) WHERE[*] 1 VALUES(?);"; expected "="; SQL statement:
-UPDATE GAME_POINTLIST SET (POINT) WHERE 1 VALUES(?); [42001-199]

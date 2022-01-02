@@ -16,16 +16,20 @@ import torpedo.persistence.impl.JdbcPlayerRepository;
  */
 public class Game {
     private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
+    int starterPoint = 10;
 
     void game() throws SQLException {
         LOGGER.info("A játék elkezdődött");
         Scanner player1 = new Scanner(System.in);
         System.out.println("Adja meg az 1. játékos nevét:");
-        GamerVO gamerVO1 = new GamerVO(player1.nextLine());
-        System.out.println("Kellemes szórakozást kívánok neked," + gamerVO1.getName() + "!");
-        JdbcPlayerRepository jdbcPlayerRepository;
-        jdbcPlayerRepository = new JdbcPlayerRepository(gamerVO1);
-        jdbcPlayerRepository.addPlayer(gamerVO1,0);
+        String input1 = null;
+        input1 = player1.nextLine();
+        GamerVO gamerVO1 = new GamerVO(input1);
+        System.out.println("Kellemes szórakozást kívánok neked," + input1 + "!");
+        gamerVO1.setPoint(starterPoint);
+        JdbcPlayerRepository jdbcPlayerRepository1;
+        jdbcPlayerRepository1 = new JdbcPlayerRepository(gamerVO1);
+        jdbcPlayerRepository1.addPlayer(gamerVO1);
         System.out.println(gamerVO1.getName() + " hajóinak kiválasztása:");
         PlayerTable playerTable1 = new PlayerTable(10, 10);
         MapVO mapVO1 = playerTable1.createTable();
@@ -33,25 +37,34 @@ public class Game {
 
         Scanner player2 = new Scanner(System.in);
         System.out.println("Adja meg a 2. játékos nevét:");
-        GamerVO gamerVO2 = new GamerVO(player2.nextLine());
-        System.out.println("Kellemes szórakozást kívánok neked," + gamerVO2.getName() + "!");
-        jdbcPlayerRepository = new JdbcPlayerRepository(gamerVO2);
-        jdbcPlayerRepository.addPlayer(gamerVO2,0);
+        String input2 = null;
+        input2 = player2.nextLine();
+        GamerVO gamerVO2 = new GamerVO(input2);
+        System.out.println("Kellemes szórakozást kívánok neked," + input2 + "!");
+        gamerVO2.setPoint(starterPoint);
+        JdbcPlayerRepository jdbcPlayerRepository2;
+        jdbcPlayerRepository2 = new JdbcPlayerRepository(gamerVO2);
+        jdbcPlayerRepository2.addPlayer(gamerVO2);
         System.out.println(gamerVO2.getName() + " hajóinak kiválasztása:");
         PlayerTable playerTable2 = new PlayerTable(10, 10);
         MapVO mapVO2 = playerTable2.createTable();
         System.out.println(mapVO2);
         System.out.println("Mindkét játékos pályái készen vannak. Következik a vadászat!");
         boolean end = false;
-
+        int shootPoint = starterPoint;
         do {
-            ShootTable shootTable = new ShootTable(mapVO2, mapVO1);
+            shootPoint++;
             System.out.println(gamerVO1.getName() + " lövése következik");
+            gamerVO1.setPoint(shootPoint);
+            gamerVO1.setNev(input1);
+            jdbcPlayerRepository1.modPlayer(gamerVO1);
+            gamerVO2.setPoint(shootPoint);
+            gamerVO2.setNev(input2);
+            jdbcPlayerRepository2.modPlayer(gamerVO2);
+            ShootTable shootTable = new ShootTable(mapVO2, mapVO1);
             MapVO shootTable2 = shootTable.shootValidatorPlayer01();
-            jdbcPlayerRepository.modPlayer(gamerVO1,-10);
             System.out.println(gamerVO2.getName() + " lövése következik");
             MapVO shootTable1 = shootTable.shootValidatorPlayer02();
-            jdbcPlayerRepository.modPlayer(gamerVO2,-10);
             CheckerTable checkerTable = new CheckerTable(shootTable2, shootTable1);
             MapVO checkerTable2 = checkerTable.checkerTablePlayer01();
             MapVO checkerTable1 = checkerTable.checkerTablePlayer02();
@@ -65,12 +78,23 @@ public class Game {
             EndChecker endChecker = new EndChecker(shootTable2, shootTable1);
             boolean endPlayer01 = endChecker.endCheckerPlayer01();
             boolean endPlayer02 = endChecker.endCheckerPlayer02();
+            if (endPlayer01) {
+                gamerVO1.setPoint(shootPoint + 100);
+                gamerVO1.setNev(input1);
+                jdbcPlayerRepository1.modPlayer(gamerVO1);
+            }
+            if (endPlayer02) {
+                gamerVO2.setPoint(shootPoint + 100);
+                gamerVO2.setNev(input2);
+                jdbcPlayerRepository2.modPlayer(gamerVO2);
+            }
             if ((endPlayer01) || (endPlayer02)) {
                 end = true;
             }
         } while (!end);
 
         LOGGER.info("Vége a játéknak!");
+        jdbcPlayerRepository1.readPlayer();
         player1.close();
         player2.close();
     }

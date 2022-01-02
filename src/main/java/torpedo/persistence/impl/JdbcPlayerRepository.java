@@ -21,7 +21,7 @@ public class JdbcPlayerRepository implements PlayerRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(JdbcPlayerRepository.class);
 
     static final String INSERT_STATEMENT = "INSERT INTO GAME_POINTLIST (NAME, POINT) VALUES (?, ?);";
-    static final String SELECT_STATEMENT = "SELECT * FROM GAME_POINTLIST WHERE 1 ORDER BY POINT *DESC;";
+    static final String SELECT_STATEMENT = "SELECT * FROM GAME_POINTLIST WHERE 1 ORDER BY POINT;";
     static final String UPDATE_STATEMENT = "UPDATE GAME_POINTLIST SET POINT = ? WHERE NAME = ?;";
 
     Connection connection = DriverManager.getConnection("jdbc:h2:./db./torpedo", "sz", "i");
@@ -33,15 +33,25 @@ public class JdbcPlayerRepository implements PlayerRepository {
     }
 
     @Override
-    public void addPlayer(GamerVO gamerVO, int Point) {
+    public void addPlayer(GamerVO gamerVO) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_STATEMENT)) {
             preparedStatement.setString(1, gamerVO.getName());
             preparedStatement.setString(2, String.valueOf(gamerVO.getPoint()));
             preparedStatement.executeUpdate();
-
         } catch (SQLException throwables) {
             LOGGER.debug(String.valueOf(throwables));
         }
+    }
+
+    @Override
+    public void modPlayer(GamerVO gamerVO) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_STATEMENT)) {
+                preparedStatement.setString(2, gamerVO.getName());
+                preparedStatement.setString(1, String.valueOf(gamerVO.getPoint()));
+                preparedStatement.executeUpdate();
+            } catch (SQLException throwables) {
+                LOGGER.debug(String.valueOf(throwables));
+            }
     }
 
     @Override
@@ -50,24 +60,12 @@ public class JdbcPlayerRepository implements PlayerRepository {
     }
 
     @Override
-    public void modPlayer(GamerVO gamerVO, int Point) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_STATEMENT)) {
-                preparedStatement.setString(1, gamerVO.getName());
-                preparedStatement.setString(2, String.valueOf(gamerVO.getPoint()));
-                preparedStatement.executeUpdate();
-
-            } catch (SQLException throwables) {
-                LOGGER.debug(String.valueOf(throwables));
-            }
-    }
-
-    @Override
     public GamerVO readPlayer() {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_STATEMENT)) {
             preparedStatement.setString(1, gamerVO.getName());
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                gamerVO.setPoint(resultSet.getInt("Started"));
+                gamerVO.setPoint(resultSet.getInt("Point"));
             }
         } catch (SQLException throwables) {
             LOGGER.debug(String.valueOf(throwables));
