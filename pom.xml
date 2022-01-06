@@ -56,7 +56,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>hu.nye.progtech.torpedo.Main</mainClass>
+                            <mainClass>Torpedo.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -75,7 +75,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        hu.nye.progtech.Torpedo.Main
+                                        Torpedo.Main
                                     </mainClass>
                                 </manifest>
                             </archive>
@@ -97,9 +97,10 @@
                 <version>0.8.2</version>
                 <configuration>
                     <excludes>
-                        <exclude>hu/nye/progtech/Torpedo/Main.*</exclude>
-                        <exclude>hu/nye/progtech/Torpedo/model/*</exclude>
-                        <exclude>hu/nye/progtech/Torpedo/configuration/*</exclude>
+                        <exclude>torpedo/Main.*</exclude>
+                        <exclude>torpedo/model/*</exclude>
+                        <exclude>torpedo/service/*</exclude>
+                        <exclude>torpedo/configuration/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -128,7 +129,7 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.8</minimum>
+                                            <minimum>0.7</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
