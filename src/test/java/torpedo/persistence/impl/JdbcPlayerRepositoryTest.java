@@ -23,44 +23,37 @@ class JdbcPlayerRepositoryTest {
 
     @Test
     void testAddPlayer() {
-        // Setup
+        // Given
         final GamerVO gamerVO = new GamerVO("player1", 0);
 
-        // Run the test
+        // When
         jdbcPlayerRepositoryUnderTest.addPlayer(gamerVO);
-
-        // Verify the results
     }
 
     @Test
     void testModPlayer() {
-        // Setup
+        // Given
         final GamerVO gamerVO = new GamerVO("player1", 0);
 
-        // Run the test
+        // When
         jdbcPlayerRepositoryUnderTest.modPlayer(gamerVO);
-
-        // Verify the results
     }
 
     @Test
     void testClose() throws Exception {
-        // Setup
-        // Run the test
+        // When
         jdbcPlayerRepositoryUnderTest.close();
-
-        // Verify the results
     }
 
     @Test
     void testReadPlayer() {
-        // Setup
+        // Given
         final GamerVO expectedResult = new GamerVO("player1", 0);
 
-        // Run the test
+        // When
         final GamerVO result = jdbcPlayerRepositoryUnderTest.readPlayer();
 
-        // Verify the results
+        // Then
         assertEquals(expectedResult, result);
     }
 
