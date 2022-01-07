@@ -2,7 +2,10 @@ package torpedo.persistence.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import torpedo.model.GamerVO;
+
+import java.sql.Connection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -10,10 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class JdbcPlayerRepositoryTest {
 
     private JdbcPlayerRepository jdbcPlayerRepositoryUnderTest;
+    private Connection connection;
 
     @BeforeEach
     void setUp() throws Exception {
         jdbcPlayerRepositoryUnderTest = new JdbcPlayerRepository(new GamerVO("player1", 0));
+        connection = Mockito.mock(Connection.class);
     }
 
     @Test
@@ -57,5 +62,15 @@ class JdbcPlayerRepositoryTest {
 
         // Verify the results
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testCloseShouldCloseConnection() throws Exception {
+        // When
+        connection.close();
+
+        // Then
+        Mockito.verify(connection).close();
+        Mockito.verifyNoMoreInteractions(connection);
     }
 }
